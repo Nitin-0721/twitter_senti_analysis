@@ -5,8 +5,7 @@ import pickle
 import requests
 from spacy.lang.en.stop_words import STOP_WORDS
 
-# LOAD SPACY MODEL (Blank model - works on Streamlit Cloud)
-
+# LOAD SPACY MODEL (Blank model for Streamlit Cloud)
 nlp = spacy.blank("en")
 
 def preprocess(text):
@@ -21,23 +20,36 @@ def preprocess(text):
         tokens.append(token.text.lower())
     return " ".join(tokens)
 
-# DOWNLOAD MODEL FROM GOOGLE DRIVE
+
+# GOOGLE DRIVE DIRECT DOWNLOAD LINKS
 MODEL_URL = "https://drive.google.com/uc?export=download&id=1h8XdP-f-8AiBeL_i9-nVNDB1DWOlyQte"
 ENCODER_URL = "https://drive.google.com/uc?export=download&id=19k84TwwLbVh1UUK6SLMBZeZY3t966mmC"
 
+
+# LOADING MODEL & ENCODER
 @st.cache_resource
 def load_model():
     # Load model
-    model_data = requests.get(MODEL_URL).content
-    model = pickle.loads(model_data)
+    try:
+        model_data = requests.get(MODEL_URL).content
+        model = pickle.loads(model_data)
+    except Exception as e:
+        st.error(f"Error loading model: {e}")
+        raise e
 
     # Load label encoder
-    encoder_data = requests.get(ENCODER_URL).content
-    label_encoder = pickle.loads(encoder_data)
+    try:
+        encoder_data = requests.get(ENCODER_URL).content
+        label_encoder = pickle.loads(encoder_data)
+    except Exception as e:
+        st.error(f"Error loading encoder: {e}")
+        raise e
 
     return model, label_encoder
 
+
 model, label_encoder = load_model()
+
 
 # STREAMLIT UI
 st.title("Twitter Sentiment Analysis App")
@@ -57,4 +69,4 @@ if st.button("Predict Sentiment"):
         st.success(f"Sentiment: **{sentiment}**")
 
 st.markdown("---")
-st.markdown("Built with Streamlit & Machine Learning")
+st.markdown("Built with using Streamlit & Machine Learning")
