@@ -1,0 +1,6 @@
+data/ 
+*.csv 
+model.pkl 
+label_encoder.pkl 
+__pycache__/ 
+*.pyc 
