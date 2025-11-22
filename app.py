@@ -5,9 +5,8 @@ import pickle
 import requests
 from spacy.lang.en.stop_words import STOP_WORDS
 
-# ----------------------------------------------------------
 # LOAD SPACY MODEL (Blank model - works on Streamlit Cloud)
-# ----------------------------------------------------------
+
 nlp = spacy.blank("en")
 
 def preprocess(text):
@@ -22,9 +21,7 @@ def preprocess(text):
         tokens.append(token.text.lower())
     return " ".join(tokens)
 
-# ----------------------------------------------------------
 # DOWNLOAD MODEL FROM GOOGLE DRIVE
-# ----------------------------------------------------------
 MODEL_URL = "https://drive.google.com/uc?export=download&id=1h8XdP-f-8AiBeL_i9-nVNDB1DWOlyQte"
 ENCODER_URL = "https://drive.google.com/uc?export=download&id=19k84TwwLbVh1UUK6SLMBZeZY3t966mmC"
 
@@ -42,9 +39,7 @@ def load_model():
 
 model, label_encoder = load_model()
 
-# ----------------------------------------------------------
 # STREAMLIT UI
-# ----------------------------------------------------------
 st.title("Twitter Sentiment Analysis App")
 st.write("Enter a tweet below to predict its sentiment.")
 
@@ -62,4 +57,4 @@ if st.button("Predict Sentiment"):
         st.success(f"Sentiment: **{sentiment}**")
 
 st.markdown("---")
-st.markdown("Built with ❤️ using Streamlit & Machine Learning")
+st.markdown("Built with Streamlit & Machine Learning")
