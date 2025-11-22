@@ -3,9 +3,7 @@ import pandas as pd
 import spacy
 import pickle
 
-# ----------------------------------------------------------
 # LOAD SPACY MODEL
-# ----------------------------------------------------------
 nlp = spacy.load("en_core_web_sm")
 
 def preprocess(text):
@@ -20,15 +18,12 @@ def preprocess(text):
         tokens.append(token.lemma_)
     return " ".join(tokens)
 
-# ----------------------------------------------------------
 # LOAD TRAINED MODEL + LABEL ENCODER
-# ----------------------------------------------------------
+
 model = pickle.load(open("model.pkl", "rb"))
 label_encoder = pickle.load(open("label_encoder.pkl", "rb"))
 
-# ----------------------------------------------------------
 # STREAMLIT UI
-# ----------------------------------------------------------
 
 st.title("Twitter Sentiment Analysis App")
 st.write("Enter a tweet below to predict its sentiment.")
