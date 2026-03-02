@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from spacy.lang.en.stop_words import STOP_WORDS
 import spacy
 import pickle
 
